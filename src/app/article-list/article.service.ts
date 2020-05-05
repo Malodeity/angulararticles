@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Article } from './article';
-import { ARTICLES } from './mock-articles';
 import { Key } from 'protractor';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleService {
 
-constructor() { }
+constructor(private http: HttpClient) { }
 
 //importing the mock articles class to this service
 getArticle(): Observable<Article[]> {
-  const articles: Article[] = ARTICLES;
-  return of(articles);
+  return this.http.get<Article[]>("http://localhost:8000/articles");
 }
 
-getArticles(key : string): Observable<Article>{
-  const articles : Article[] = ARTICLES.filter(a => a.key === key);
-  return of(articles[0]);
 
+
+
+getArticles(key : string): Observable<Article>{
+  return this.http.get<Article>("http://localhost:8000/articles/" + key);
 }
 
 }
