@@ -18,7 +18,7 @@ getArticle(): Observable<Article[]> {
 
 
 
-
+//importing the mock articles class to this service (for each selected article)
 getArticles(key : string): Observable<Article>{
   return this.http.get<Article>("http://localhost:8000/articles/" + key);
 }
